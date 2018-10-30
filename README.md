@@ -1,1 +1,2 @@
-# fun-with-r
+# Fun with R
+
