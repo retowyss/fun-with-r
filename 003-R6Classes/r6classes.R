@@ -1,3 +1,4 @@
+# Best install tidyverse for this
 library(R6)
 
 ## List
@@ -39,6 +40,7 @@ print(h)
 tic_tac_toe <- R6Class("tic-tac-toe", 
   private = list(
     board = matrix(rep(".", 9), nrow = 3),
+    # Player 1 (1), Player  2 (-1)
     to_move = 1,
     draw = list("1" = "x", "-1" = "o")
   ),
