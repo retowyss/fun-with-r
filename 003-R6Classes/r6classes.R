@@ -66,3 +66,49 @@ ttt$
   play(1, 3)
 
 print(x)  
+
+
+## This is a coin -------------------------------------------------------------
+
+coin <- R6Class("coin",
+  private = list(
+    .p = NA_real_
+  ),
+  public = list(
+    initialize = function(p = 0.5) {
+      stopifnot(p <= 1, p >= 0)
+      private$.p <- p
+    },
+    flip = function(n = 1) {
+      runif(n) <= private$.p
+    }
+  )  
+) 
+
+
+fair_coin <- coin$new()
+fair_coin$flip(10)
+
+biased_coin <- coin$new(p = .9)
+biased_coin$flip(100)
+
+# This looks boring, now consider this
+
+up <- runif(1)
+ic <- coin$new(p = up)
+
+# We want to find the unkown probability "up"
+# let's flip the coin n times and take m samples
+
+n <- 100
+m <- 10000
+
+flip_means <- as.double(purrr::rerun(m, mean(ic$flip(n = n)))) 
+
+mean(flip_means)
+sd(flip_means)
+hist(flip_means)
+
+
+
+
