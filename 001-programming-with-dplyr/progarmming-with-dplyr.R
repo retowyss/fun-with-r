@@ -3,18 +3,20 @@
 
 library(tidyverse)
 
-# Take an unquatred argument and pass it throguh to dplyr function 
+# Take an unquatred argument and pass it throguh to dplyr functions 
 
-summariser <- function(df, group_var, f = mean) {
-  group_var <- enquo(group_var)
+summarise_all_by <- function(x, y, f = mean) {
+  y <- enquo(y)
   
-  df %>%
-    group_by(!! group_var) %>%
+  x %>%
+    group_by(!! y) %>%
     summarise_all(f)
 }
 
 
-summariser(iris, Species, mean)
-summariser(iris, Species, median)
-summariser(mtcars, cyl, median)
+summarise_all_by(iris, Species, mean)
+
+summarise_all_by(iris, Species, median)
+
+summarise_all_by(mtcars, cyl, median)
 
