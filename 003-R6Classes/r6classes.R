@@ -92,7 +92,7 @@ fair_coin$flip(10)
 biased_coin <- coin$new(p = .9)
 biased_coin$flip(100)
 
-# This looks boring, now consider this
+# Let's run an experiment
 
 up <- runif(1)
 class_coin <- coin$new(p = up)
@@ -109,9 +109,18 @@ mean(class_means)
 sd(class_means)
 hist(class_means)
 
-# we can have a similar effect by using a closure
+# we can have a similar effect by using a closure instead of a class
+# this is super shorthand
 
 new_coin <- function(p) function(n = 1) runif(n) <= p
+
+# equivalent to
+
+# new_coin <- function(p) {
+#   function(n = 1) {
+#     runif(n) <= p  
+#   }  
+# }
 
 closure_coin <- new_coin(up)
 
