@@ -95,7 +95,7 @@ biased_coin$flip(100)
 # This looks boring, now consider this
 
 up <- runif(1)
-ic <- coin$new(p = up)
+class_coin <- coin$new(p = up)
 
 # We want to find the unkown probability "up"
 # let's flip the coin n times and take m samples
@@ -103,12 +103,20 @@ ic <- coin$new(p = up)
 n <- 100
 m <- 10000
 
-flip_means <- as.double(purrr::rerun(m, mean(ic$flip(n = n)))) 
+class_means <- as.double(purrr::rerun(m, mean(class_coin$flip(n = n)))) 
 
-mean(flip_means)
-sd(flip_means)
-hist(flip_means)
+mean(class_means)
+sd(class_means)
+hist(class_means)
 
+# we can have a similar effect by using a closure
 
+new_coin <- function(p) function(n = 1) runif(n) <= p
 
+closure_coin <- new_coin(up)
 
+clousre_means <- as.double(purrr::rerun(m, mean(closure_coin(n))))
+
+mean(clousre_means)
+sd(clousre_means)
+hist(clousre_means)
