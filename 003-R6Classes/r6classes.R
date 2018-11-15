@@ -11,7 +11,7 @@ fancy_list <- R6Class(classname = "fancy-list",
     print = function() {
       purrr::walk(ls(private$x), function(.key) {
         key <- stringr::str_pad(.key, 32)
-        obj <- str_trunc(rlang::expr_text(private$x[[.key]]), 64)
+        obj <- stringr::str_trunc(rlang::expr_text(private$x[[.key]]), 64)
         cat(key, " = ", obj, "\n")  
       })
     },
@@ -42,14 +42,14 @@ tic_tac_toe <- R6Class("tic-tac-toe",
     board = matrix(rep(".", 9), nrow = 3),
     # Player 1 (1), Player  2 (-1)
     to_move = 1,
-    draw = list("1" = "x", "-1" = "o")
+    symbols = list("1" = "x", "-1" = "o")
   ),
   public = list(
     print = function() {
       purrr::walk(1:3, ~ cat(private$board[., 1:3], "\n"))
     },
     play = function(x, y) {
-      private$board[[x, y]] <- private$draw[[private$to_move]]
+      private$board[[x, y]] <- private$symbols[[private$to_move]]
       private$to_move <- private$to_move * (-1) 
       invisible(self)
     }
@@ -65,7 +65,7 @@ ttt$
   play(3, 1)$
   play(1, 3)
 
-print(x)  
+print(ttt)  
 
 
 ## This is a coin -------------------------------------------------------------
